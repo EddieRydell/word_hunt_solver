@@ -13,7 +13,7 @@ std::unordered_set<std::string> dictionary;
 std::unordered_set<std::string> found_words; // Global variable for storing found words
 
 unsigned int num_words_found = 0;
-#define MAX_WORDS 100
+#define MAX_WORDS 20
 int MIN_WORD_LENGTH;
 
 // Directions for exploring neighbors (8 directions: up, down, left, right, diagonals)
@@ -91,6 +91,7 @@ int main() {
     std::cout << "Enter letters for a 4x4 grid (row by row):\n";
     iterate_over_letters([](char& letter) {
         std::cin >> letter;
+        letter = (char)std::tolower(letter);
     });
     std::cout << "Got letters\n\n";
 
