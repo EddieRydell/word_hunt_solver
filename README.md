@@ -6,11 +6,13 @@ This program uses the SOWPODS scrabble dictionary as its reference. I'm not sure
 
 ## Usage
 
-To use the program, download the repo and build it using CMake. It's set up in a way where it should work out of the box. It runs on the command line and will prompt you to enter the grid. A grid with this configuration:
+To use the program, download the repo and build it using CMake. It's set up in a way where it should work out of the box on the command line. When running, it will prompt you to enter the grid. A grid with this configuration:
 
-|a|b|c|d|
-|e|f|g|h|
-|i|j|k|l|
-|m|n|o|p|
+```
+A B C D
+E F G H
+I J K L
+M N O P
+```
 
-would be input as "a b c d e f g h i j k l m n o p". It will then search for words within the grid, starting from a length of 10 and then working backwards to a minimum length of 4. The program only outputs a maximum of 100 words of each length as any more would clog up the terminal and would be impossible to enter in under 90 seconds. I recommend entering the longest words first as they're worth the most points.
+would be input as `a b c d e f g h i j k l m n o p` (separated by spaces, not case sensitive). It will then search for words within the grid, starting from a length of 10 and then working backwards to a minimum length of 4. The program only outputs a maximum of 20 words of each length as any more would clog up the terminal and would be impossible to enter in under 90 seconds. I recommend entering the longest words first as they're worth the most points.
