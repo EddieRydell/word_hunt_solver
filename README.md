@@ -6,7 +6,7 @@ This program uses the SOWPODS scrabble dictionary as its reference. I'm not sure
 
 ## Usage
 
-To use the program, download the repo and build it using CMake. It's set up in a way where it should work out of the box on the command line with ./WordHuntSolver. When running, it will prompt you to enter the grid. A grid with this configuration:
+To use the program, download the repo and build it using CMake. It's set up in a way where it should work out of the box on the command line. When running, it will prompt you to enter the grid. A grid with this configuration:
 
 ```
 A B C D
