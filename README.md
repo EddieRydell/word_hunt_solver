@@ -15,4 +15,4 @@ I J K L
 M N O P
 ```
 
-would be input as `a b c d e f g h i j k l m n o p` (spaceing doesn't matter, not case sensitive). It will then search for words within the grid, starting from a length of 10 and then working backwards to a minimum length of 4. The program only outputs a maximum of 20 words of each length as any more would clog up the terminal and would be impossible to enter in under 90 seconds. I recommend entering the longest words first as they're worth the most points.
+would be input as `a b c d e f g h i j k l m n o p` (spacing doesn't matter, not case sensitive). It will then search for words within the grid, starting from a length of 10 and then working backwards to a minimum length of 4. The program only outputs a maximum of 20 words of each length as any more would clog up the terminal and would be impossible to enter in under 90 seconds. I recommend entering the longest words first as they're worth the most points.
