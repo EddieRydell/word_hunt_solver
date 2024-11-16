@@ -2,7 +2,7 @@
 
 This is a program to find words in GamePigeon Word Hunt quickly so I can beat Prabhleen. It takes a string of 16 characters describing the 4X4 grid and then outputs words that can be found in the grid by moving horizontally, vertically, and diagonally. It uses a recursive pathfinding algorithm and can usually find all words up to 10 letters long almost instantly.
 
-This program uses the SOWPODS scrabble dictionary as its reference. I'm not sure what dictionary GamePigeon uses, but all of the words I've found so far seem to count for Word Hunt.
+This program uses the SOWPODS scrabble dictionary as its reference. I'm not sure what dictionary GamePigeon uses, but most of the words I've found so far seem to count for Word Hunt.
 
 ## Usage
 
