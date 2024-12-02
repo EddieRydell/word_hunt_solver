@@ -5,15 +5,18 @@
 #include <cstring>
 #include <algorithm>
 
+#include "trie.h"
+// #include "opencv2/opencv.hpp"
+
 #define SIDE_LENGTH 4
 char letter_array[SIDE_LENGTH][SIDE_LENGTH];
 bool visited[SIDE_LENGTH][SIDE_LENGTH] = {false};
 
-std::unordered_set<std::string> dictionary;
+trie dictionary;
 std::unordered_set<std::string> found_words; // Global variable for storing found words
 
 unsigned int num_words_found = 0;
-#define MAX_WORDS 20
+#define MAX_WORDS 30
 int MIN_WORD_LENGTH;
 
 // Directions for exploring neighbors (8 directions: up, down, left, right, diagonals)
@@ -31,11 +34,9 @@ void init_dictionary() {
 
     std::string word;
     while (std::getline(input_file, word)) {
-        // Convert to lowercase
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
         dictionary.insert(word);
     }
-    std::cout << "Dictionary size: " << dictionary.size() << std::endl;
     input_file.close();
 }
 
@@ -50,16 +51,24 @@ void iterate_over_letters(F function) {
 }
 
 // Recursive backtracking to search words in the grid
-void search_words(int x, int y, std::string current_word) {
+void search_words(int x, int y, std::string current_word, trie_node* current_node) {
     if (num_words_found >= MAX_WORDS || current_word.length() > MIN_WORD_LENGTH - 1) {
         return;
     }
+
     if (x < 0 || x >= SIDE_LENGTH || y < 0 || y >= SIDE_LENGTH || visited[x][y]) {
         return;
     }
 
-    current_word += letter_array[x][y];
-    if (dictionary.count(current_word) && current_word.length() >= MIN_WORD_LENGTH) {
+    char letter = letter_array[x][y];
+    if (current_node->children.find(letter) == current_node->children.end()) {
+        return; // No valid word can start with this prefix
+    }
+
+    current_node = current_node->children[letter];
+    current_word += letter;
+
+    if (current_node->terminal && current_word.length() >= MIN_WORD_LENGTH) {
         if (found_words.insert(current_word).second) {
             num_words_found++;
         }
@@ -70,7 +79,7 @@ void search_words(int x, int y, std::string current_word) {
     for (int dir = 0; dir < 8; ++dir) {
         int nx = x + dx[dir];
         int ny = y + dy[dir];
-        search_words(nx, ny, current_word);
+        search_words(nx, ny, current_word, current_node);
     }
 
     visited[x][y] = false;
@@ -80,13 +89,33 @@ void find_all_words() {
     for (int i = 0; i < SIDE_LENGTH; ++i) {
         for (int j = 0; j < SIDE_LENGTH; ++j) {
             memset(visited, false, sizeof(visited));
-            search_words(i, j, "");
+            search_words(i, j, "", dictionary.root); // Start from the root of the trie
         }
     }
 }
 
 int main() {
     init_dictionary();
+
+//    cv::VideoCapture cap(0); // Open the camera
+//    if (!cap.isOpened()) {
+//        std::cerr << "Error: Could not open the camera!" << std::endl;
+//        return -1;
+//    }
+//
+//    cv::Mat frame;
+//    cap >> frame; // Capture a single frame
+//
+//    if (frame.empty()) {
+//        std::cerr << "Error: Empty frame captured!" << std::endl;
+//        return -1;
+//    }
+//
+//    // Save the captured image
+//    cv::imwrite("captured_image.jpg", frame);
+//    std::cout << "Image captured and saved as 'captured_image.jpg'" << std::endl;
+//
+//    cap.release(); // Release the camera
 
     std::cout << "Enter letters for a 4x4 grid (row by row):\n";
     iterate_over_letters([](char& letter) {
@@ -110,6 +139,7 @@ int main() {
             std::cout << word << std::endl;
         }
         found_words.clear();
+        // num_words_found = 0;
     }
 
     return 0;
